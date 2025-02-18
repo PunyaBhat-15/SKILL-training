@@ -4,6 +4,7 @@ void reverseString(char *str){
     int length;
     length=strlen(str);
     for(int left = 0, right = length-1; left<right; left++, right--){
+        //swapping the letters
         char temp= str[left];
         str[left]=str[right];
         str[right]=temp;
