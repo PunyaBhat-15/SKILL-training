@@ -1,0 +1,62 @@
+2.student marks(2D ARRAY)
+#include<stdio.h>
+#define max_sub 10
+void calculateTotalMarks(int marks[][max_sub],int studentscount,int subjectcount,int total_marks[]) {
+	for(int i=0; i<studentscount; i++) {
+		total_marks[i]=0;
+		for(int j=0; j<subjectcount; j++) {
+			total_marks[i]+=marks[i][j];
+		}
+
+	}
+}
+void swap(int* first,int* second) {
+	int temp=(*first);
+	(*first)=(*second);
+	(*second)=temp;
+}
+void sortStudents(int total_marks[],int studentscount) {
+	int isswap=0;
+	do {
+		for(int i=0; i<studentscount-1; i++) {
+			if(total_marks[i]<total_marks[i+1]) {
+				swap(&total_marks[i],&total_marks[i+1]);
+				isswap=1;
+			}
+
+		}
+		studentscount--;
+	} while(isswap);
+}
+void readstudentmarks(int marks[][max_sub],int studentscount,int subjectcount) {
+	printf("enter marks:\n");
+	for(int i=0; i<studentscount; i++) {
+		printf("student %d: ",i+1);
+		for(int j=0; j<subjectcount; j++) {
+			scanf("%d",&marks[i][j]);
+		}
+
+	}
+}
+void printtotalmarks(int total_marks[],int studentscount) {
+	for(int i=0; i<studentscount; i++) {
+		printf("total marks: %d\n",total_marks[i]);
+
+	}
+}
+int main() {
+	int studentscount;
+	int subjectcount;
+	int marks[1000][max_sub];
+	int total_marks[1000]= { };
+	printf("ente number of students: ");
+	scanf("%d",&studentscount);
+	printf("enter number of subjects: ");
+	scanf("%d",&subjectcount);
+	readstudentmarks( marks,studentscount,subjectcount);
+	calculateTotalMarks(marks,studentscount,subjectcount,total_marks);
+	sortStudents(total_marks,studentscount);
+	printtotalmarks(total_marks,studentscount);
+	return 0;
+
+}
