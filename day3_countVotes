@@ -94,7 +94,7 @@ int main()
 {   int n;
     printf("Enter number of votes:");
     scanf("%d",&n);
-    int* votes = NULL;//no wild pointer //int votes[1000]
+    int* votes = NULL;//not initalizing a pointer is called a wild pointer
     votes = (int*)malloc(sizeof(int)*n);
     readvotes(votes,n);
     int* candidateVotes=(int*)calloc(5,sizeof(int));
@@ -103,7 +103,7 @@ int main()
       printf("candiate %d votes are %d\n",i+1,candidateVotes[i]);
     }
     printf("Winner is %d",findWinder(candidateVotes));
-    free(votes);//dangling pointer
+    free(votes);//dangling pointer gives undefined behaviour,i.e pointer still holds the address hence null
     votes=NULL;//no dangling
     free(candidateVotes);
     candidateVotes=NULL;
