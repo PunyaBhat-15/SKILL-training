@@ -1,0 +1,61 @@
+#include <stdio.h>
+#define max 1000
+struct Fiction_t{
+    char title[250];
+    char author[250];
+    float price;
+};
+typedef struct Fiction_t Fiction;
+struct Nonfiction_t{
+    char title[250];
+    char subject[50];
+    float price;
+};
+typedef struct Nonfiction_t Nonfiction;
+union BookType_t{
+    Fiction fiction;
+    Nonfiction nonfiction;
+};
+typedef union BookType_t BookType;
+struct Book_t{                
+    int type;
+    BookType bookType;
+};
+typedef struct Book_t Book;
+int bookCount;
+Book books[max];
+void readBooks(){
+    printf("Enter number of books:");
+    scanf("%d",&bookCount);
+    for(int i=0;i<bookCount;i++){
+        printf("Enter book type(1-Fiction,2-Non-Fiction):");
+        scanf("%d",&books[i].type);
+        switch(books[i].type){
+            case 1:{
+                printf("Enter Fiction Book Details (title,auther,price):");
+                scanf("%s%s%f",books[i].bookType.fiction.title,books[i].bookType.fiction.author,&books[i].bookType.fiction.price);
+            }break;
+            case 2:{
+                 printf("Enter Non-Fiction Book Details (title,subject,price):");
+                scanf("%s%s%f",books[i].bookType.nonfiction.title,books[i].bookType.nonfiction.subject,&books[i].bookType.nonfiction.price);
+            }break;
+        }
+    }
+}
+void displayBooks(){
+    for(int i=0;i<bookCount;i++){
+        switch(books[i].type){
+            case 1:{
+                printf("Fiction Book:\n%s\t%s\t%f\n",books[i].bookType.fiction.title,books[i].bookType.fiction.author,books[i].bookType.fiction.price);
+            }break;
+            case 2:{
+                 printf("Non-Fiction Book:\n%s\t%s\t%f\n",books[i].bookType.nonfiction.title,books[i].bookType.nonfiction.subject,books[i].bookType.nonfiction.price);
+            }break;
+        }
+    }
+}
+int main(){
+    readBooks();
+    displayBooks();
+    return 0;
+}
