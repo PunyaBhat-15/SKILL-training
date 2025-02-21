@@ -1,3 +1,5 @@
+USING STACK:
+
 #include <stdio.h>
 #define stack_size 10000
 
@@ -53,4 +55,78 @@ void StackPop(Stack* stk) {
 	stk->_size--;
 }
 
+
+USING QUEUE
+
+#include <stdio.h>
+#define stack_size 10000
+
+typedef float T;
+typedef struct {
+	T elements[stack_size];
+	int _size;
+	int _front;
+	int _back;
+
+} Q;
+void QInit(Q* stk);
+void QPush(Q* stk, T element);
+int QEmpty(Q* stk);
+T QFRONT(Q* stk);
+T QBack(Q* stk);
+void QPop(Q* stk);
+int main()
+{
+	float salaries[]= {50000, 40000, 48000, 23000, 2000};
+	Q stk;
+	QInit(&stk);
+	for(int i=0; i<5; i++) {
+		QPush(&stk,salaries[i]);
+	}
+	printf("Salaries from Q:\n");
+	while(!QEmpty(&stk)) {
+		float sal= QFRONT(&stk);
+		printf("%.2f\n",sal);
+		QPop(&stk);
+	}
+	return 0;
+}
+void QInit(Q* stk) {
+	stk->_size=0;
+	stk->_front=-1;
+	stk->_back=-1;
+}
+void QPush(Q* stk, T element) {
+	stk->_back++;
+	stk->elements[stk->_back]=element;
+	stk->_size++;
+	if(stk->_front==-1) {
+		stk->_front=0;
+	}
+
+}
+int QEmpty(Q* stk) {
+	return(stk->_front==-1);
+}
+T QFRONT(Q* stk)
+{
+	return stk->elements[stk->_front];
+}
+T QBack(Q* stk) {
+	return stk->elements[stk->_back];
+}
+void QPop(Q* stk) {
+	if(QEmpty(stk)) {
+		printf("Q is empty\n");
+		return;
+	}
+	if(stk->_front==stk->_back) {
+		stk->_front=-1;
+		stk->_back=-1;
+		stk->_size=0;
+	} else {
+		stk->_front++;
+	}
+
+}
 
